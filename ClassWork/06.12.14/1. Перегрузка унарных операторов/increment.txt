@@ -1,0 +1,38 @@
+using System;
+
+class Point
+{
+    private Int32 x = 0;
+    private Int32 y = 0;
+
+    public Point(Int32 x, Int32 y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static Point operator ++(Point point)
+    {
+        Point p = new Point(point.x, point.y);
+        p.x++;
+        p.y++;
+
+        return p;
+    }
+
+    public override String ToString()
+    {
+        return String.Format("X = {0} Y = {1}", x, y);
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Point p = new Point(5, 5);
+        Console.WriteLine(p++);
+        Console.WriteLine(p);
+        Console.WriteLine(++p);
+    }
+}

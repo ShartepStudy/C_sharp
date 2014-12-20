@@ -1,0 +1,41 @@
+using System;
+using System.Text;
+using System.IO;
+using System.Collections.Generic;
+
+class Point
+{
+    int x, y;
+
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public static bool operator true(Point p1)
+    {
+        return p1.x != 0 && p1.y != 0;
+    }
+
+    public static bool operator false(Point p1)
+    {
+        return !(p1.x != 0 && p1.y != 0);
+    }
+}
+class Program
+{
+    static void Main(string[] args)
+    {
+        Point a = new Point(1, 1);
+
+        if (a)
+        {
+            Console.WriteLine("TRUE");
+        }
+        else
+        {
+            Console.WriteLine("FALSE");
+        }
+    }
+}

@@ -1,0 +1,41 @@
+using System;
+using System.Text;
+using System.IO;
+
+class Point
+{
+    int x, y;
+    public Point(int x, int y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("X = {0}, Y = {1}", x, y);
+    }
+
+    public static implicit operator Point(int a)
+    {
+        return new Point(a, a);
+    }
+
+    public static explicit operator double(Point a)
+    {
+        return a.x + a.y + 0.001;
+    }
+
+}
+class Program
+{
+    static void Main(string[] args)
+    {
+        Point p = 5;
+        Console.WriteLine(p);
+
+        double d = (double)p;
+        Console.WriteLine(d);
+    }
+}
+

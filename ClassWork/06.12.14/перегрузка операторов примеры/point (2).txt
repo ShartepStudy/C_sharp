@@ -1,0 +1,60 @@
+using System;
+using System.Text;
+using System.IO;
+
+class Sample
+{
+    class Point
+    {
+        int x, y;
+
+        public Point(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+
+        public static Point operator ++(Point p)
+        {
+            p.x++;
+            p.y++;
+            return p;
+        }
+
+        public static Point operator --(Point p)
+        {
+            p.x--;
+            p.y--;
+            return p;
+        }
+
+        public static Point operator -(Point p)
+        {
+            Point t = new Point(p.x, p.y);
+            t.x = -t.x;
+            t.y = -t.y;
+            return t;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("X = {0}, Y = {1}", x, y);
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Point a = new Point(5, 5);
+            Console.WriteLine(a);
+            a++;
+            Console.WriteLine(a);
+            a--;
+            Console.WriteLine(a);
+            Console.WriteLine(-a);
+            Console.WriteLine(a);
+        }
+    }
+
+}
