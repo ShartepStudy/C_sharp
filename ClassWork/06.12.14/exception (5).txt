@@ -1,0 +1,37 @@
+using System;
+using System.Text;
+using System.IO;
+
+class Sample
+{
+    static void Main(string[] args)
+    {
+        int[] mass = new int[5];
+        int k = 0;
+        try
+        {
+            for (int i = -3; i <= 3; i++)
+            {
+                try
+                {
+                    mass[k] = 100 / i;
+                    Console.WriteLine("mass [" + k + "] = 100 / " + i + " = " + mass[k]);
+                    k++;
+                }
+                catch (DivideByZeroException e)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("внутренний кетч: {0}", e.Message);
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                }
+            }
+        }
+        catch (IndexOutOfRangeException e)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("внешний кетч: {0}", e.Message);
+        }
+        Console.CursorVisible = false;
+        Console.Read();
+    }
+}

@@ -1,0 +1,30 @@
+using System;
+using System.Text;
+using System.IO;
+
+class Sample
+{
+    static void f()
+    {
+        try
+        {
+            throw new Exception("хрясь!");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("f(): {0}", e.Message);
+            throw;
+        }
+    }
+    static void Main(string[] args)
+    {
+        try
+        {
+            f();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("main: {0}", e.Message);
+        }
+    }
+}
