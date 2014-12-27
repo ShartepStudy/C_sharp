@@ -1,0 +1,19 @@
+using System;
+using System.Xml;
+
+class MyApp
+{
+    static void Main()
+    {
+        XmlDocument doc = new XmlDocument();
+        doc.Load(@"cars.xml");
+
+        XmlNode root = doc.DocumentElement;
+
+        ((XmlElement)(root.FirstChild.FirstChild)).SetAttribute("Александр", "лучший препод в 304 аудитории");
+
+        // cохранить измененный документ
+        doc.Save(@"alex.xml");
+
+    }
+}

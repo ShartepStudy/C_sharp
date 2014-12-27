@@ -1,0 +1,33 @@
+using System;
+using System.Xml;
+class MyApp
+{
+    static void Main()
+    {
+        XmlTextWriter writer = null;
+
+        try
+        {
+            writer = new XmlTextWriter(@"student.xml", System.Text.Encoding.Unicode);
+            writer.Formatting = Formatting.Indented; // отступы и переходы на новую строку
+            writer.WriteStartDocument();
+            writer.WriteStartElement("Students");
+            writer.WriteStartElement("Student");
+            writer.WriteAttributeString("Image", "George.jpeg");
+            writer.WriteElementString("Login", "Step_gs14");
+            writer.WriteElementString("Name", "Георгий");
+            writer.WriteElementString("Surname", "Степанов");
+            writer.WriteElementString("Group", "БПВ-1321");
+            writer.WriteElementString("Speciality", "Программирование");
+            writer.WriteEndElement();
+            writer.WriteEndElement();
+        }
+
+        finally
+        {
+            if (writer != null)
+                writer.Close();
+        }
+    }
+}
+

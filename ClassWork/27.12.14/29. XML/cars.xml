@@ -1,0 +1,10 @@
+﻿<?xml version="1.0"?>
+<Cars>
+	<Car Image="kopeyka.jpg">
+		<Manufactured>Волжский автомобильный завод</Manufactured>
+		<Model>2101</Model>
+		<Year>1966</Year>
+		<Color>Жёлтый</Color>
+		<Speed>180</Speed>
+	</Car>
+</Cars>
