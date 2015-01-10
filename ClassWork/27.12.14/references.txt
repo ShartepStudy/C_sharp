@@ -1,0 +1,9 @@
+http://msdn.microsoft.com/en-us/library/bb384067.aspx
+
+http://msdn.microsoft.com/en-us/library/2d6dt3kf.aspx
+http://msdn.microsoft.com/en-us/library/tkxs89c5(v=vs.71).aspx
+http://msdn.microsoft.com/en-us/library/z04awywx.aspx
+http://msdn.microsoft.com/en-us/magazine/dd722812.aspx
+http://msdn.microsoft.com/en-us/library/3260k4x7.aspx
+
+http://stackoverflow.com/questions/598714/implicit-vs-explicit-interface-implementation
