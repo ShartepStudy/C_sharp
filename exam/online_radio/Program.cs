@@ -16,11 +16,20 @@ namespace online_radio
 
 			string[] radioStations = {
 				@"http://audio.rambler.ru/action/play.m3u?id=321&uid=PYb8BYJ/OFFGpwAAAdx4KgB",
-				@"http://www.prosto.fm/files/ProstoRadio64-Odessa.m3u",
+				@"http://naxidigital128.kbcnet.rs:8020/",
+				@"http://uk2.internet-radio.com:31491/",
+				@"http://rmnrelax1.powerstream.de:8023/",
+				@"http://5.2.65.200:8000/",
+				@"http://sc-tcl.1.fm:8010/",
+				@"http://87.98.180.164:8500/",
+				@"http://uk1.internet-radio.com:15254/",
+				@"http://205.164.35.3:80/",
+				@"http://205.164.62.13:10152/",
 				@"http://www.prosto.fm/files/PRock128.m3u"
 			};
 			int currentStation = 0;
 			WMPs.URL = radioStations[currentStation];
+			WMPs.settings.volume = 100;
 
 			Time();
 
@@ -69,7 +78,9 @@ namespace online_radio
 
 		static void ConsolWriting(object data) {
 			Console.Clear();
-			Console.WriteLine(WMPs.status);
+			try {
+				Console.WriteLine(WMPs.status);
+			} catch (Exception e) { }
 		}
     }
 }
