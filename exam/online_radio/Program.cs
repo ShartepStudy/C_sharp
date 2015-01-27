@@ -2,33 +2,59 @@
 using System;
 using System.Threading;
 using System.Text;
+using System.Xml;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace online_radio
 {
     class Program
     {
 		static WindowsMediaPlayer WMPs = new WMPLib.WindowsMediaPlayer(); //создаётся плеер 
+		static List<RadioStation> radioStations = new List<RadioStation>();
+
+		class RadioStation {
+			public string mID { get; set; }
+			public string mName { get; set; }
+			public string mURL { get; set; }
+		}
 
         static void Main()
         {
             Console.BackgroundColor = ConsoleColor.DarkBlue;
             Console.ForegroundColor = ConsoleColor.Green;
 
-			string[] radioStations = {
-				@"http://audio.rambler.ru/action/play.m3u?id=321&uid=PYb8BYJ/OFFGpwAAAdx4KgB",
-				@"http://naxidigital128.kbcnet.rs:8020/",
-				@"http://uk2.internet-radio.com:31491/",
-				@"http://rmnrelax1.powerstream.de:8023/",
-				@"http://5.2.65.200:8000/",
-				@"http://sc-tcl.1.fm:8010/",
-				@"http://87.98.180.164:8500/",
-				@"http://uk1.internet-radio.com:15254/",
-				@"http://205.164.35.3:80/",
-				@"http://205.164.62.13:10152/",
-				@"http://www.prosto.fm/files/PRock128.m3u"
-			};
+			XmlTextReader reader = null;
+
+			try {
+				reader = new XmlTextReader(@"radio_stations.xml");
+
+				while (reader.Read()) {
+					if (reader.NodeType == XmlNodeType.Element && reader.Name == "Station" && reader.AttributeCount > 0) {
+						RadioStation station = new RadioStation();
+						while (reader.MoveToNextAttribute()) {
+							if (reader.NodeType == XmlNodeType.Attribute && reader.Name == "id")
+								station.mID = reader.Value;
+							if (reader.NodeType == XmlNodeType.Attribute && reader.Name == "name")
+								station.mName = reader.Value;
+						}
+						
+						reader.Read();
+						if (reader.NodeType == XmlNodeType.Text)
+							station.mURL = reader.Value;
+
+						radioStations.Add(station);
+					}
+				}
+			} catch {
+				Console.WriteLine("Oops!");
+			} finally {
+				if (reader != null)
+					reader.Close();
+			}
+
 			int currentStation = 0;
-			WMPs.URL = radioStations[currentStation];
+			WMPs.URL = radioStations[currentStation].mURL;
 			WMPs.settings.volume = 100;
 
 			Time();
@@ -36,51 +62,70 @@ namespace online_radio
 			bool isPause = false;
 			ConsoleKey k = 0;
 			while (k != ConsoleKey.Escape) {
-				if (Console.KeyAvailable) {
-					k = Console.ReadKey().Key;
-					switch (k) { 
-					case ConsoleKey.Spacebar: 
-						if (isPause == true) {
-							WMPs.controls.play();
-							isPause = false;
-						} else { 
-							WMPs.controls.pause(); 
-							isPause = true;
-						}
-						break;
-					case ConsoleKey.OemMinus:
-						WMPs.settings.volume--;
-						Console.WriteLine(WMPs.settings.volume);
-						break;
-					case ConsoleKey.OemPlus:
-						WMPs.settings.volume++;
-						Console.WriteLine(WMPs.settings.volume);
-						break;
-					case ConsoleKey.RightArrow:
-						if (currentStation < radioStations.Length - 1)
-							WMPs.URL = radioStations[++currentStation];						
-						else
-							WMPs.URL = radioStations[currentStation = 0];
-						break;
-					case ConsoleKey.LeftArrow:
-						if (currentStation > 0)
-							WMPs.URL = radioStations[--currentStation];
-						else
-							WMPs.URL = radioStations[currentStation = radioStations.Length - 1];
-						break;
+				k = Console.ReadKey().Key;
+				switch (k) { 
+				case ConsoleKey.Spacebar: 
+					if (isPause == true) {
+						WMPs.controls.play();
+						isPause = false;
+					} else { 
+						WMPs.controls.pause(); 
+						isPause = true;
 					}
+					break;
+				case ConsoleKey.OemMinus:
+					WMPs.settings.volume--;
+					break;
+				case ConsoleKey.OemPlus:
+					WMPs.settings.volume++;
+					break;
+				case ConsoleKey.RightArrow:
+					if (currentStation < radioStations.Count - 1)
+						WMPs.URL = radioStations[++currentStation].mURL;						
+					else
+						WMPs.URL = radioStations[currentStation = 0].mURL;
+					break;
+				case ConsoleKey.LeftArrow:
+					if (currentStation > 0)
+						WMPs.URL = radioStations[--currentStation].mURL;
+					else
+						WMPs.URL = radioStations[currentStation = radioStations.Count - 1].mURL;
+					break;
 				}
 			}
         }
 		static void Time() {
-			Timer timer = new Timer(ConsolWriting, null, 0, 100);
+			Timer timer = new Timer(ConsolWriting, null, 0, 1000);
 		}
 
 		static void ConsolWriting(object data) {
-			Console.Clear();
 			try {
-				Console.WriteLine(WMPs.status);
-			} catch (Exception e) { }
+				Console.Clear();
+				Console.WriteLine();
+				Console.WriteLine();
+
+				foreach (var station in radioStations) {
+					if (station.mURL == WMPs.URL)
+						Console.ForegroundColor = ConsoleColor.Red;
+					else
+						Console.ForegroundColor = ConsoleColor.Green;
+
+					Console.WriteLine("\t\t" + station.mID.ToString() + ". " + station.mName + "\n");
+				}
+
+				Console.ForegroundColor = ConsoleColor.Yellow;
+				Console.WriteLine("\n\n");
+				Console.WriteLine("\t" + WMPs.status + "\n");
+				Console.WriteLine("\tvolume: " + WMPs.settings.volume.ToString());
+				Console.WriteLine("\n\n");
+
+				Console.ForegroundColor = ConsoleColor.Gray;
+				Console.WriteLine("\t<- pregvios station\t\t-> next station\n\n");
+				Console.WriteLine("\t- volume down\t\t\t+ volume up\n\n");
+				Console.WriteLine("\tspace - pause/play\t\t esc - exit");
+			} catch (Exception e) {
+				Console.WriteLine(e);
+			}
 		}
     }
 }
