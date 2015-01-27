@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Station id="01" name="Prosto Rock">http://www.prosto.fm/files/PRock128.m3u</Station>
+  <Station id="02" name="Mackradio Radiocafe">http://audio.rambler.ru/action/play.m3u?id=321&uid=PYb8BYJ/OFFGpwAAAdx4KgB</Station>
+  <Station id="03" name="Ambient Radio">http://uk2.internet-radio.com:31491/</Station>
+  <Station id="04" name="RMN relax">http://rmnrelax1.powerstream.de:8023/</Station>
+  <Station id="05" name="Naxi Digital">http://naxidigital128.kbcnet.rs:8020/</Station>
+  <Station id="06" name="Unknown_radio_1">http://5.2.65.200:8000/</Station>
+  <Station id="07" name="Radio Mogador">http://sc-tcl.1.fm:8010/</Station>
+  <Station id="08" name="4 CLUBBERS">http://87.98.180.164:8500/</Station>
+  <Station id="09" name="Vombat Radio">http://uk1.internet-radio.com:15254/</Station>
+  <Station id="10" name="No Logo">http://205.164.35.3:80/</Station>
+  <Station id="11" name="Chillwalker">http://205.164.62.13:10152/</Station>
+</root>
