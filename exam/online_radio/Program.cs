@@ -19,6 +19,14 @@ namespace online_radio
 			public string mURL { get; set; }
 		}
 
+        class PlayerState
+        {
+            public bool mIsPlay = false;
+            public string mStation;
+            public int mVolume = 50;
+            public bool mIsNeedUpdate = false;
+        }
+
         static void Main()
         {
             Console.BackgroundColor = ConsoleColor.DarkBlue;
@@ -58,29 +66,31 @@ namespace online_radio
 			WMPs.settings.volume = 100;
 
 			Time();
-
+            PlayerState ps = new PlayerState();
 			bool isPause = false;
 			ConsoleKey k = 0;
 			while (k != ConsoleKey.Escape) {
 				k = Console.ReadKey().Key;
 				switch (k) { 
-				case ConsoleKey.Spacebar: 
-					if (isPause == true) {
-						WMPs.controls.play();
+				case ConsoleKey.Spacebar:
+                    if (isPause == true)
+                    {
+//						WMPs.controls.play();
 						isPause = false;
+                        
 					} else { 
 						WMPs.controls.pause(); 
 						isPause = true;
 					}
 					break;
-				case ConsoleKey.OemMinus:
-					WMPs.settings.volume--;
-					break;
-				case ConsoleKey.OemPlus:
-					WMPs.settings.volume++;
-					break;
+                case ConsoleKey.OemMinus:
+                    WMPs.settings.volume--;
+                    break;
+                case ConsoleKey.OemPlus:
+                    WMPs.settings.volume++;
+                    break;
 				case ConsoleKey.RightArrow:
-					if (currentStation < radioStations.Count - 1)
+                    if (currentStation < radioStations.Count - 1)
 						WMPs.URL = radioStations[++currentStation].mURL;						
 					else
 						WMPs.URL = radioStations[currentStation = 0].mURL;
@@ -95,7 +105,7 @@ namespace online_radio
 			}
         }
 		static void Time() {
-			Timer timer = new Timer(ConsolWriting, null, 0, 1000);
+			Timer timer = new Timer(ConsolWriting, null, 0, 500);
 		}
 
 		static void ConsolWriting(object data) {

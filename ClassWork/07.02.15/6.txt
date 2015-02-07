@@ -1,0 +1,54 @@
+using System;
+using System.Text.RegularExpressions;
+
+namespace RegularEx
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = @"23\11\1990";
+            //string pattern = "(\\\\)|(-)|(\\.)";
+            string pattern = @"(\\)|(-)|(\.)";
+
+            string[] res = Regex.Split(str, pattern);
+            foreach (string s in res) Console.Write(s);
+            Console.WriteLine();
+
+            /////////////////////////////////////////////////////////////
+            
+            str = "cat dog bird pig dog";
+            pattern = @"c.*g"; // . - Подстановочный знак: соответствует какому-либо одному знаку, кроме "\n".
+            Match m = Regex.Match(str, pattern);
+            Console.WriteLine(m.Value); // cat dog bird pig dog
+            pattern = @"c.*?g"; // ? - Соответствует предыдущему элементу ноль или один раз.
+            m = Regex.Match(str, pattern);
+            Console.WriteLine(m.Value); // cat dog
+
+            /////////////////////////////////////////////////////////////
+
+            str = "29-5-2009";
+            pattern = @"(?<day>\d{1,2})-(?<month>\d{1,2})-(?<year>\d{4})"; // (?<name> subexpression ) - Выделяет соответствующую часть выражения в именованную группу.
+            string result = Regex.Replace(str, pattern, "${day}.${month}.${year}"); // ${name} - Замещает часть строки, соответствующую именованной группе name.
+            Console.WriteLine(result);
+
+            /////////////////////////////////////////////////////////////
+            
+            str = "cat dog dog bird pig pig dog";
+            pattern = @"(?<word>\w+)\s(\k<word>)"; // \k< name > - Именованная обратная ссылка. Соответствует значению именованного выражения.
+
+            Regex reg = new Regex(pattern);
+            MatchCollection mc = reg.Matches(str);
+            foreach (Match match in mc) Console.Write(match.Value + ", ");
+            Console.WriteLine();
+
+            /////////////////////////////////////////////////////////////
+
+            pattern = @"(?<day>\d{1,2})-(?<month>\d{1,2})-(?<year>\d{4})";
+            reg = new Regex(pattern);
+            string[] groups = reg.GetGroupNames();
+            foreach (string gr in groups) Console.Write(gr + ", ");
+            Console.WriteLine();
+        }
+    }
+}
