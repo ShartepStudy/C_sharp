@@ -1,0 +1,6 @@
+http://msdn.microsoft.com/ru-ru/library/ck8bc5c6.aspx !!! посмотреть в первую очередь !!!
+http://rsdn.ru/article/dotnet/CSThreading1.xml
+http://msdn.microsoft.com/ru-ru/library/ms173178.aspx
+http://msdn.microsoft.com/ru-ru/library/ts553s52(v=vs.110).aspx
+http://msdn.microsoft.com/ru-ru/library/ms173179.aspx
+

@@ -1,0 +1,22 @@
+using System;
+using System.Threading;
+
+class SemaphoreTest
+{
+    static Semaphore s = new Semaphore(3, 3);  // Available=3; Capacity=3
+
+    static void Main()
+    {
+        for (int i = 0; i < 10; i++)
+            new Thread(Go).Start();
+    }
+
+    static void Go()
+    {
+        s.WaitOne();
+        // Только 3 потока могут находиться здесь одновременно
+        Thread.Sleep(1000);
+        Console.WriteLine("done!");
+        s.Release();
+    }
+}

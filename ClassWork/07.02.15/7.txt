@@ -1,0 +1,21 @@
+using System;
+using System.Text.RegularExpressions;
+
+public class Example
+{
+    public static void Main()
+    {
+        string pattern = "(Mr\\.? |Mrs\\.? |Miss |Ms\\.? )";
+
+        string[] names = {
+                             "Mr. Alexey Goryachev",
+                             "Mr Gennadiy Prihod'ko",
+                             "Mrs. Alevtina Lopatyuk", 
+                             "Valentine Kotoff",
+                             "Ms. Veronica Zhukova"
+                         };
+
+        foreach (string name in names)
+            Console.WriteLine(Regex.Replace(name, pattern, String.Empty));
+    }
+}

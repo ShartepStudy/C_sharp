@@ -1,0 +1,12 @@
+using System;
+using System.Threading;
+
+class InterlockedExample
+{
+    static void Main()
+    {
+        int x = 0;
+        Interlocked.Increment(ref x);
+        // http://msdn.microsoft.com/ru-ru/library/system.threading.interlocked(v=vs.110).aspx
+    }
+}
