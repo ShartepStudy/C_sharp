@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <Station id="01" name="Prosto Rock">http://www.prosto.fm/files/PRock128.m3u</Station>
-  <Station id="02" name="Mackradio Radiocafe">http://audio.rambler.ru/action/play.m3u?id=321&uid=PYb8BYJ/OFFGpwAAAdx4KgB</Station>
+  <Station id="02" name="Mackradio Radiocafe">http://audio.rambler.ru/action/play.m3u?id=321&amp;uid=PYb8BYJ/OFFGpwAAAdx4KgB</Station>
   <Station id="03" name="Ambient Radio">http://uk2.internet-radio.com:31491/</Station>
   <Station id="04" name="RMN relax">http://rmnrelax1.powerstream.de:8023/</Station>
   <Station id="05" name="Naxi Digital">http://naxidigital128.kbcnet.rs:8020/</Station>
