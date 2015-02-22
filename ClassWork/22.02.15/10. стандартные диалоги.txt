@@ -1,0 +1,5 @@
+            //ColorDialog cd = new ColorDialog();
+            //FontDialog fd = new FontDialog();
+            //PrintDialog pd = new PrintDialog();
+
+            //pd.ShowDialog();
