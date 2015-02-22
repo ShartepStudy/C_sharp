@@ -1,0 +1,74 @@
+using System;
+
+namespace Attributes
+{
+
+    // http://www.dotnetperls.com/attribute
+    // http://stackoverflow.com/questions/20346/net-what-are-attributes
+    // http://www.tutorialspoint.com/csharp/csharp_attributes.htm
+    // http://www.codeproject.com/Articles/827091/Csharp-Attributes-in-minutes
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Test();
+        }
+
+        [Obsolete] // Obsolete attribute is a way to declare that a method is deprecated and should be avoided.
+        static void Test()
+        {
+            AttributeTester.CheckAttribute();
+        }
+    }
+
+    //////////////////////////////////////////////////////////////
+
+    class AlexAttribute : Attribute // создаём собственный атрибут наследуясь от стандартного класса
+    {
+        public int Count // создаём своё свойство, которое будет содержать атрибут
+        {
+            get;
+            set;
+        } // можно описать несколько свойств, но для примера создаётся только одно
+    }
+
+    [AlexAttribute(Count = 3)] // using of custom attribute
+    class AttributeTester
+    {
+        public static void CheckAttribute()
+        {
+            Type info = typeof(AttributeTester); // получение описания типа
+            if (Attribute.IsDefined(info, typeof(AlexAttribute))) // проверка на существование атрибута
+            {
+                var attributeValue = Attribute.GetCustomAttribute(info, typeof(AlexAttribute)) as AlexAttribute; // получаем значение атрибута
+                Console.WriteLine(attributeValue.Count); // используем значение атрибута для формирования результата
+            }
+        }
+    }
+
+    //////////////////////////////////////////////////////////////
+
+    [System.AttributeUsage(System.AttributeTargets.Class |
+                        System.AttributeTargets.Struct,
+                        AllowMultiple = true)]  // multiple attributes of the same type may be applied to a class.
+
+    public class Author : System.Attribute
+    {
+        private string name;
+        public double version;
+
+        public Author(string name)
+        {
+            this.name = name;
+            version = 1.0;
+        }
+    }
+
+    [Author("K.Marks", version = 1.1)]
+    [Author("F.Engels", version = 1.2)]
+    class Capital
+    {
+        // some action here
+    }
+}
