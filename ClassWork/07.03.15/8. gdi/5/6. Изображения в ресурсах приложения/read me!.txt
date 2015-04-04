@@ -1,0 +1,4 @@
+1. правой кнопкой по картинке - свойства
+2. build action - Embedded Resource!
+
+http://stackoverflow.com/questions/145752/what-are-the-various-build-action-settings-in-vs-net-project-properties-and-wh

@@ -1,0 +1,9 @@
+1. создать проект с типом WindowsFormsControlLibrary
+2. добавить желаемые элементы из тулбокса на панель для создания собственного составного элемента управления
+3. ПКМ по решению в обозревателе, добавить новый проект WindowsFormsApplication
+4. ПКМ по References проекта WindowsFormsApplication, добавить ссылку в разделе Solution - Projects, поставить галочку
+5. смотреть тулбокс, и там в самом верху будет новый контрол. если его нет - помогает такое:
+а) set as startup project по отношению к проекту WindowsFormsApplication (ПКМ в его свойствах, в обозревателе)
+б) перезапустить студию
+в) зайти в настройки проекта (Tools - Options - Windows Forms Designer - Automatically Populate Toolbox - True!
+

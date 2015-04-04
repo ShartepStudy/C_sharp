@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+using System.IO;
+
+namespace WindowsFormsApplication3
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            this.Text = "Дерево каталогов";
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            // Замыкаем размеры
+            this.MaximizeBox = false;
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // Создаем объект дерева
+            TreeView tree = new TreeView();
+            // Привязываем к форме
+            tree.Parent = this;
+            // Разварачиваем на всю форму
+            tree.Dock = DockStyle.Fill;
+
+            // Создаем корневой узел
+            TreeNode nodeDrive = new TreeNode("\\fs\Преподаватели\Загоруйко А\Public");
+            // Добавляем корневой узел к дереву просмотра
+            tree.Nodes.Add(nodeDrive);
+            // Развертываем корневой узел
+            nodeDrive.Expand();
+
+            // Считываем дерево каталогов
+            AddDirectories(nodeDrive);
+        }
+        // Рекурсивный метод
+        void AddDirectories(TreeNode node)
+        {
+            // Для текущего узла node получаем полный путь к корню дерева
+            string strPath = node.FullPath;
+            // Создаем объект текущего каталога
+            DirectoryInfo dirInfo = new DirectoryInfo(strPath);
+            // Объявляем ссылку на массив подкаталогов текущего каталога
+            DirectoryInfo[] arrayDirInfo;
+
+            try
+            {
+                // Пытаемся получить список подкаталогов
+                arrayDirInfo = dirInfo.GetDirectories();
+            }
+            catch
+            {
+                // Подкаталогов нет, выходим из рекурсии
+                return;
+            }
+
+            // Добавляем прочитанные подкаталоги как узлы в дерево просмотра
+            foreach (DirectoryInfo dir in arrayDirInfo)
+            {
+                // Создаем новый узел с именем подкаталога
+                TreeNode nodeDir = new TreeNode(dir.Name);
+                // Добавляем его как дочерний к текущему узлу
+                node.Nodes.Add(nodeDir);
+                // Развертываем узел
+                //nodeDir.Expand();
+                // Делаем дочерний узел текущим и спускаемся рекурсивно ниже
+                AddDirectories(nodeDir);
+            }
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}
