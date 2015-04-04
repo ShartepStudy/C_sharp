@@ -1,0 +1,26 @@
+﻿using System;
+using System.Windows.Forms;
+
+namespace WindowsForms
+{
+    internal partial class CustomForm :
+        Form
+    {
+        public CustomForm()
+        {
+            InitializeComponent();
+
+            //KeyPreview = true;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs arguments)
+        {
+            m_label.Text = String.Format(
+                "KeyValue = {0} KeyCode = {1} KeyData = {2}", 
+                arguments.KeyValue.ToString(), 
+                arguments.KeyCode, 
+                arguments.KeyData
+            );
+        }
+    }
+}
